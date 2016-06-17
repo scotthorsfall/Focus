@@ -9,19 +9,18 @@
 /* Begin PBXBuildFile section */
 		50DF2C551D10D185008CFA94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C541D10D185008CFA94 /* AppDelegate.swift */; };
 		50DF2C571D10D185008CFA94 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C561D10D185008CFA94 /* ViewController.swift */; };
-		50DF2C5A1D10D185008CFA94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50DF2C581D10D185008CFA94 /* Main.storyboard */; };
+		50DF2C5A1D10D185008CFA94 /* Scott.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50DF2C581D10D185008CFA94 /* Scott.storyboard */; };
 		50DF2C5C1D10D185008CFA94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50DF2C5B1D10D185008CFA94 /* Assets.xcassets */; };
 		50DF2C5F1D10D185008CFA94 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50DF2C5D1D10D185008CFA94 /* LaunchScreen.storyboard */; };
 		50DF2C6A1D10D185008CFA94 /* FocusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C691D10D185008CFA94 /* FocusTests.swift */; };
 		50DF2C751D10D185008CFA94 /* FocusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C741D10D185008CFA94 /* FocusUITests.swift */; };
-		50DF2C831D10D22D008CFA94 /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C821D10D22D008CFA94 /* DayViewController.swift */; };
-		50DF2C851D10D232008CFA94 /* WeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C841D10D232008CFA94 /* WeekViewController.swift */; };
-		50DF2C871D10D238008CFA94 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C861D10D238008CFA94 /* SettingsViewController.swift */; };
-		50DF2C891D10D23F008CFA94 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C881D10D23F008CFA94 /* TasksViewController.swift */; };
-		50DF2C8B1D10D245008CFA94 /* CreateTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C8A1D10D245008CFA94 /* CreateTaskViewController.swift */; };
+		50DF2C831D10D22D008CFA94 /* ScottDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C821D10D22D008CFA94 /* ScottDayViewController.swift */; };
 		50DF2C8E1D10D6CD008CFA94 /* BaseTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C8C1D10D6CD008CFA94 /* BaseTransition.swift */; };
 		50DF2C8F1D10D6CD008CFA94 /* FadeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C8D1D10D6CD008CFA94 /* FadeTransition.swift */; };
 		50DF2C921D111B91008CFA94 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C911D111B91008CFA94 /* Date.swift */; };
+		50F447DA1D13A5420072916E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50F447D91D13A5420072916E /* Main.storyboard */; };
+		50F447DC1D13A5F20072916E /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F447DB1D13A5F20072916E /* DayViewController.swift */; };
+		50F447DE1D13A5F80072916E /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F447DD1D13A5F80072916E /* TasksViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +44,7 @@
 		50DF2C511D10D185008CFA94 /* Focus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Focus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50DF2C541D10D185008CFA94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50DF2C561D10D185008CFA94 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		50DF2C591D10D185008CFA94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		50DF2C591D10D185008CFA94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Scott.storyboard; sourceTree = "<group>"; };
 		50DF2C5B1D10D185008CFA94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50DF2C5E1D10D185008CFA94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		50DF2C601D10D185008CFA94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -55,14 +54,13 @@
 		50DF2C701D10D185008CFA94 /* FocusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FocusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50DF2C741D10D185008CFA94 /* FocusUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusUITests.swift; sourceTree = "<group>"; };
 		50DF2C761D10D185008CFA94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		50DF2C821D10D22D008CFA94 /* DayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayViewController.swift; sourceTree = "<group>"; };
-		50DF2C841D10D232008CFA94 /* WeekViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekViewController.swift; sourceTree = "<group>"; };
-		50DF2C861D10D238008CFA94 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		50DF2C881D10D23F008CFA94 /* TasksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
-		50DF2C8A1D10D245008CFA94 /* CreateTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTaskViewController.swift; sourceTree = "<group>"; };
+		50DF2C821D10D22D008CFA94 /* ScottDayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScottDayViewController.swift; sourceTree = "<group>"; };
 		50DF2C8C1D10D6CD008CFA94 /* BaseTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTransition.swift; sourceTree = "<group>"; };
 		50DF2C8D1D10D6CD008CFA94 /* FadeTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeTransition.swift; sourceTree = "<group>"; };
 		50DF2C911D111B91008CFA94 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		50F447D91D13A5420072916E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		50F447DB1D13A5F20072916E /* DayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayViewController.swift; sourceTree = "<group>"; };
+		50F447DD1D13A5F80072916E /* TasksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,16 +113,15 @@
 			children = (
 				50DF2C541D10D185008CFA94 /* AppDelegate.swift */,
 				50DF2C561D10D185008CFA94 /* ViewController.swift */,
-				50DF2C581D10D185008CFA94 /* Main.storyboard */,
+				50DF2C581D10D185008CFA94 /* Scott.storyboard */,
 				50DF2C901D10D6D7008CFA94 /* Transitions */,
-				50DF2C821D10D22D008CFA94 /* DayViewController.swift */,
-				50DF2C841D10D232008CFA94 /* WeekViewController.swift */,
-				50DF2C861D10D238008CFA94 /* SettingsViewController.swift */,
+				50DF2C821D10D22D008CFA94 /* ScottDayViewController.swift */,
 				50DF2C911D111B91008CFA94 /* Date.swift */,
-				50DF2C881D10D23F008CFA94 /* TasksViewController.swift */,
-				50DF2C8A1D10D245008CFA94 /* CreateTaskViewController.swift */,
 				50DF2C5B1D10D185008CFA94 /* Assets.xcassets */,
 				50DF2C5D1D10D185008CFA94 /* LaunchScreen.storyboard */,
+				50F447D91D13A5420072916E /* Main.storyboard */,
+				50F447DB1D13A5F20072916E /* DayViewController.swift */,
+				50F447DD1D13A5F80072916E /* TasksViewController.swift */,
 				50DF2C601D10D185008CFA94 /* Info.plist */,
 			);
 			path = Focus;
@@ -263,8 +260,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				50DF2C5F1D10D185008CFA94 /* LaunchScreen.storyboard in Resources */,
+				50F447DA1D13A5420072916E /* Main.storyboard in Resources */,
 				50DF2C5C1D10D185008CFA94 /* Assets.xcassets in Resources */,
-				50DF2C5A1D10D185008CFA94 /* Main.storyboard in Resources */,
+				50DF2C5A1D10D185008CFA94 /* Scott.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,15 +288,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				50DF2C571D10D185008CFA94 /* ViewController.swift in Sources */,
+				50F447DE1D13A5F80072916E /* TasksViewController.swift in Sources */,
 				50DF2C921D111B91008CFA94 /* Date.swift in Sources */,
 				50DF2C8F1D10D6CD008CFA94 /* FadeTransition.swift in Sources */,
 				50DF2C551D10D185008CFA94 /* AppDelegate.swift in Sources */,
-				50DF2C851D10D232008CFA94 /* WeekViewController.swift in Sources */,
-				50DF2C871D10D238008CFA94 /* SettingsViewController.swift in Sources */,
-				50DF2C831D10D22D008CFA94 /* DayViewController.swift in Sources */,
+				50DF2C831D10D22D008CFA94 /* ScottDayViewController.swift in Sources */,
+				50F447DC1D13A5F20072916E /* DayViewController.swift in Sources */,
 				50DF2C8E1D10D6CD008CFA94 /* BaseTransition.swift in Sources */,
-				50DF2C891D10D23F008CFA94 /* TasksViewController.swift in Sources */,
-				50DF2C8B1D10D245008CFA94 /* CreateTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,12 +330,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		50DF2C581D10D185008CFA94 /* Main.storyboard */ = {
+		50DF2C581D10D185008CFA94 /* Scott.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				50DF2C591D10D185008CFA94 /* Base */,
 			);
-			name = Main.storyboard;
+			name = Scott.storyboard;
 			sourceTree = "<group>";
 		};
 		50DF2C5D1D10D185008CFA94 /* LaunchScreen.storyboard */ = {
