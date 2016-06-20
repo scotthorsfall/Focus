@@ -8,17 +8,39 @@
 
 import UIKit
 
-class TasksViewController: UIViewController {
+class TasksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
+    
+    @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        // return whichever, will make tableview with 5 cells right now
+        return 5
+        
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = UITableViewCell()
+        
+        cell.textLabel!.text = "2 hours free"
+        
+        return cell
+        
     }
     
 
