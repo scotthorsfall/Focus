@@ -59,8 +59,13 @@ class CreateViewController: UIViewController {
     func keyboardWillShow(notification: NSNotification!) {
         print("show")
         
+        let frame = notification.userInfo![UIKeyboardFrameEndUserInfoKey]!.CGRectValue()
+        
         formView.frame.origin.y = initialFormViewY + offset
-        saveView.frame.origin.y = initialSaveViewY + offset - 200
+       
+        // move save up w/ keyboard height
+        saveView.frame.origin.y = initialSaveViewY - frame.height
+
         
     }
     
