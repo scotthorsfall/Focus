@@ -14,12 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         // Initialize Parse
         // Set applicationId and server based on the values in the Heroku settings.
         // clientKey is not used on Parse open source unless explicitly configured
+        Parse.enableLocalDatastore()
         Parse.initializeWithConfiguration(
             ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) -> Void in
                 configuration.applicationId = "myAppId"
@@ -27,6 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 configuration.server = "https://focus-pocus.herokuapp.com/parse"
             })
         )
+        
+        PFAnonymousUtils.logInWithBlock {
+            (user: PFUser?, error: NSError?) -> Void in
+            if error != nil || user == nil {
+                print("Anonymous login failed.")
+            } else {
+                print("Anonymous user logged in.")
+            }
+        }
+        
+        
         return true
     }
 

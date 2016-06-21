@@ -7,19 +7,27 @@
 //
 
 import UIKit
+import Parse
+
+@objc protocol CreateViewControllerDelegate {
+    func didAddTask(task: PFObject)
+}
 
 class CreateViewController: UIViewController {
 
     
     @IBOutlet weak var titleTextfield: UITextField!
+    @IBOutlet weak var timeTextField: UITextField!
     @IBOutlet weak var formView: UIView!
     @IBOutlet weak var saveView: UIView!
     
     var initialSaveViewY: CGFloat!
     var initialFormViewY: CGFloat!
     var offset: CGFloat!
+    var taskTitle: String!
+    var taskTime: Int!
     
-    
+    weak var delegate: CreateViewControllerDelegate?
     
     override func viewWillAppear(animated: Bool) {
         
@@ -80,6 +88,31 @@ class CreateViewController: UIViewController {
     }
     
     @IBAction func didSaveTask(sender: AnyObject) {
+        
+        taskTitle = titleTextfield.text
+        taskTime = Int(timeTextField.text!)
+        
+        let taskObject = PFObject(className: "Task")
+        taskObject["title"] = taskTitle
+        taskObject["time"] = taskTime
+        taskObject["user"] = PFUser.currentUser()
+        
+        // save to cloud~~~
+        taskObject.saveInBackgroundWithBlock {
+            (succeeded: Bool, error: NSError?) -> Void in
+            if error == nil {
+                // Hooray! Let them use the app now.
+                print("Task successfully created")
+                self.delegate?.didAddTask(taskObject)
+                
+            } else {
+                print("Error saving task...")
+            }
+            
+        }
+        
+        // save to LocalStorage
+        //taskObject.pinInBackground()
         
         //Dissmiss Create View and Save Task
         self.dismissViewControllerAnimated(true, completion: nil)
