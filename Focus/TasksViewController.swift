@@ -8,7 +8,6 @@
 
 import UIKit
 
-<<<<<<< Updated upstream
 class TasksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
     @IBOutlet weak var tableView: UITableView!
@@ -21,14 +20,6 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.delegate = self
         tableView.dataSource = self
     }
-=======
-class TasksViewController: UIViewController {
-    @IBOutlet weak var taskTabelView: UITableView!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-   }
->>>>>>> Stashed changes
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -37,15 +28,11 @@ class TasksViewController: UIViewController {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-<<<<<<< Updated upstream
         // return whichever, will make tableview with 5 cells right now
-=======
->>>>>>> Stashed changes
         return 5
         
     }
     
-<<<<<<< Updated upstream
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell()
@@ -56,8 +43,6 @@ class TasksViewController: UIViewController {
         
     }
     
-=======
->>>>>>> Stashed changes
 
     /*
     // MARK: - Navigation
