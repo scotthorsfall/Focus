@@ -114,9 +114,9 @@ class ScottDayViewController: UIViewController, UITableViewDataSource, UITableVi
         //copy the eventsInRange to modify it
         rangeCopy = eventsInRange
     
-        // setup when the day should start and when it should end (with work hours)
-        let dayStart: NSDate! = NSDate().setHour(9)
-        let dayEnd: NSDate! = NSDate().setHour(17)
+        // setup when the day should start and when it should end (within work hours)
+        let dayStart: NSDate! = NSDate().setHour(9) // TODO using 9am temporarily
+        let dayEnd: NSDate! = NSDate().setHour(17) // TODO using 5pm 
         
         // create an event for when the day starts
         let dayStartEvent: EKEvent! = EKEvent(eventStore: focusEventStore)
