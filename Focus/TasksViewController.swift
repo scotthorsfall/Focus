@@ -15,6 +15,9 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     var tasks: [PFObject] = [PFObject]()
     
+    var highlightColor: UIColor! = UIColor(red: 119/255, green: 125/255, blue: 136/255, alpha: 1)
+    var labelColor: UIColor! = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,7 +27,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.dataSource = self
         
         let query = PFQuery(className: "Task")
-        query.whereKey("user", equalTo: PFUser.currentUser()!)
+//        query.whereKey("user", equalTo: PFUser.currentUser()!)
 
         // fetch from local storage which doesn't work right now
         // query.fromLocalDatastore()
@@ -50,14 +53,25 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCellWithIdentifier("TaskCell")!
 
         let task = tasks[indexPath.row]
         cell.textLabel!.text = task["title"] as? String
         
+        cell.textLabel!.textColor = highlightColor
+        
+        
         return cell
         
     }
+    
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        if indexPath.row == 0 {
+//            return 100
+//        } else {
+//            return 50
+//        }
+//    }
     
     func didAddTask(task: PFObject) {
         tasks.insert(task, atIndex: 0)
@@ -77,4 +91,14 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         
     }
 
+    @IBAction func didCloseTask(sender: AnyObject) {
+        
+        //Dissmiss Create View and kill all edits
+        self.dismissViewControllerAnimated(true, completion: nil)
+
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
 }
