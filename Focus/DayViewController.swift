@@ -370,7 +370,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
             let cell = tableView.dequeueReusableCellWithIdentifier("freeCell") as! FreeTableViewCell
             
-            let time = event.endDate.timeFromFloat(event.startDate)
+            let time = event.endDate.timeFromFloat(event.startDate) as! NSArray
             let timeText = time[0]
             let hours = time[1]
             

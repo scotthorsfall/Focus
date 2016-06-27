@@ -15,10 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    //func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         // Override point for customization after application launch.
         // Initialize Parse
         // Set applicationId and server based on the values in the Heroku settings.
         // clientKey is not used on Parse open source unless explicitly configured
+        print("Initializing Parse...")
+
         Parse.enableLocalDatastore()
         Parse.initializeWithConfiguration(
             ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) -> Void in
@@ -28,6 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         )
         
+        let settings = UIUserNotificationSettings(forTypes: .Alert, categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+        
+
+        
+        /*
         PFAnonymousUtils.logInWithBlock {
             (user: PFUser?, error: NSError?) -> Void in
             if error != nil || user == nil {
@@ -36,9 +46,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Anonymous user logged in.")
             }
         }
+        */
         
+        print("Finish initialization")
         
         return true
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        print("Got token data! \(deviceToken)")
+        
+        print("Initializing Parse installations...")
+        
+        let installation = PFInstallation.currentInstallation()
+        installation.setDeviceTokenFromData(deviceToken)
+        //installation["user"] = PFUser.currentUser()
+        let loggedUser = PFUser.currentUser()
+        if ((loggedUser) != nil) {
+            installation.setObject(loggedUser!, forKey: "user")
+        }
+        installation.saveInBackgroundWithBlock { (succeeded: Bool, error: NSError?) in
+            print("Successfully created installation")
+        }
+        
+        print("Current installation: %@", installation)
+
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print("Couldn't register: \(error)")
     }
 
     func applicationWillResignActive(application: UIApplication) {
