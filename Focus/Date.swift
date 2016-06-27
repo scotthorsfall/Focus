@@ -45,7 +45,7 @@ func timeFormatterToString(date: NSDate, timeStyle: String) -> String {
     } else {
         dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
     }
-
+    
     return dateFormatter.stringFromDate(date)
 }
 
@@ -55,7 +55,7 @@ extension NSDate {
         if
             let cal: NSCalendar = NSCalendar.currentCalendar(),
             let comp: NSDateComponents = cal.components(.Year, fromDate: self) {
-                return comp.year
+            return comp.year
         } else {
             return nil
         }
@@ -193,6 +193,56 @@ extension NSDate {
         
         //Return Result
         return isEqualTo
+    }
+    
+    func hoursFrom(date: NSDate) -> Int {
+        return NSCalendar.currentCalendar().components(.Hour, fromDate: date, toDate: self, options: []).hour
+    }
+    
+    func minutesFrom(date: NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(.Minute, fromDate: date, toDate: self, options: []).minute
+    }
+    
+    func timeFromFloat(date: NSDate) -> AnyObject! {
+        
+        let minutes = NSCalendar.currentCalendar().components(.Minute, fromDate: date, toDate: self, options: []).minute
+        let hours = Double(minutes / 60)
+        let remainder = minutes % 60
+        var decimal: Double!
+        var time: Double!
+        
+        var timeArray: [AnyObject] = []
+        
+        if hours >= 1 {
+            if remainder >= 45 {
+                decimal = 0.75
+                time = hours + decimal
+            } else if remainder >= 30 {
+                decimal = 0.5
+                time = hours + decimal
+            } else if remainder >= 15 {
+                decimal = 0.25
+                time = hours + decimal
+            } else {
+                decimal = 0.0
+                time = hours
+            }
+            // set to true if hours
+            
+            if minutes > 60 {
+                timeArray.append("hours")
+            } else {
+                timeArray.append("hour")
+            }
+            
+            timeArray.append(time)
+        } else {
+            time = Double(minutes)
+            timeArray.append("minutes")
+            timeArray.append(time)
+        }
+        
+        return timeArray
     }
     
 }
