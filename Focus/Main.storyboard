@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="SNc-jy-Lm9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="SNc-jy-Lm9">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -130,7 +130,18 @@
                         </subviews>
                         <color key="backgroundColor" red="0.46666666666666667" green="0.49019607843137253" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Today" id="7yo-6u-T1V"/>
+                    <navigationItem key="navigationItem" title="Today" id="7yo-6u-T1V">
+                        <barButtonItem key="leftBarButtonItem" title="Previous" id="Yv7-ex-OOR">
+                            <connections>
+                                <action selector="onPreviousDayTap:" destination="R65-v2-ebE" id="xWh-JZ-oFX"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="Don-kg-p7C">
+                            <connections>
+                                <action selector="onNextDayTap:" destination="R65-v2-ebE" id="xCc-fQ-B4T"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="createTaskButton" destination="Jop-aO-a02" id="1O0-qK-HTK"/>
                         <outlet property="eventsTableView" destination="y7M-Qc-hLN" id="yk6-1V-uZa"/>

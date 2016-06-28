@@ -11,9 +11,11 @@ import EventKit
 
 class DayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    // navigation vars
     @IBOutlet weak var navItem: UINavigationItem!
-    @IBOutlet weak var eventsTableView: UITableView!
     
+    // mainview vars
+    @IBOutlet weak var eventsTableView: UITableView!
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var taskTrayView: UIView!
     
@@ -34,7 +36,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     // set current day (0 = today)
     // TODO: update this as views change
-    var currentDay: Double! = 0
+    var currentDay: Int! = 0
     
     // set work day beginning and end hours
     // TODO: get these from somewhere
@@ -49,10 +51,8 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         navItem.title = "Today"
         
-        
         // check calendar status on appear
         checkCalendarAuthorizationStatus()
-
 
     }
 
@@ -78,6 +78,8 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         case EKAuthorizationStatus.Restricted, EKAuthorizationStatus.Denied:
             // failed, didn't get access
             print("need permission")
+            
+            // TODO need to a state for if we didn't get access
         }
     }
     
@@ -110,8 +112,10 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         // set beginning and end of day (based on currentDay var)
         // use now.dayBegin()! to reset to 12:00am of that day
-        let beginningDate = NSDate(timeInterval: currentDay*24*60*60, sinceDate: NSDate().dayBegin()!)
+        let beginningDate = NSDate(timeInterval: Double(currentDay)*24*60*60, sinceDate: NSDate().dayBegin()!)
         let endDate = NSDate(timeInterval: 1*24*60*60, sinceDate: beginningDate)
+        
+        navItem.title = dateFormatterToString(beginningDate, dateStyle: "Short")
         
         // get all events within range on calendar
         let predicate = eventStore.predicateForEventsWithStartDate(beginningDate, endDate: endDate, calendars: calendars)
@@ -244,8 +248,8 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         // setup when the day should start and when it should end (within work hours)
         // TODO: might have to convert these to allow the currentDay variable
-        let dayStart: NSDate! = NSDate().setHour(dayStartTime)
-        let dayEnd: NSDate! = NSDate().setHour(dayEndTime)
+        let dayStart: NSDate! = beginningDate.setHour(dayStartTime)
+        let dayEnd: NSDate! = beginningDate.setHour(dayEndTime)
         
         // create an event for when the day starts
         let dayStartEvent: EKEvent! = EKEvent(eventStore: eventStore)
@@ -401,4 +405,28 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
 
+    @IBAction func onNextDayTap(sender: AnyObject) {
+        print("next day")
+        
+        // reset tableView store
+        focusEventStore = []
+        refreshTableView()
+        
+        print("focuseventstore count \(focusEventStore.count)")
+        
+        // increment day
+        currentDay = currentDay + 1
+        print("current day: \(currentDay)")
+        
+        // reload data
+        self.loadEvents()
+        self.refreshTableView()
+        
+    }
+    
+    @IBAction func onPreviousDayTap(sender: AnyObject) {
+        print("previous day")
+        
+    }
+    
 }
