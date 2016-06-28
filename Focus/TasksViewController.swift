@@ -27,13 +27,12 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.dataSource = self
         
         let query = PFQuery(className: "Task")
-//        query.whereKey("user", equalTo: PFUser.currentUser()!)
+        query.whereKey("user", equalTo: PFUser.currentUser()!)
 
         // fetch from local storage which doesn't work right now
         // query.fromLocalDatastore()
         query.findObjectsInBackgroundWithBlock { (tasks: [PFObject]?, error: NSError?) in
             self.tasks = tasks!
-            
             self.tableView.reloadData()
         }
         
@@ -48,9 +47,6 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         // return whichever, will make tableview with 5 cells right now
         return tasks.count
-        
-        
-        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -20,6 +20,7 @@ class CreateViewController: UIViewController {
     @IBOutlet weak var timeTextField: UITextField!
     @IBOutlet weak var formView: UIView!
     @IBOutlet weak var saveView: UIView!
+    @IBOutlet weak var saveButton: UIButton!
     
     var initialSaveViewY: CGFloat!
     var initialFormViewY: CGFloat!
@@ -63,6 +64,14 @@ class CreateViewController: UIViewController {
         
     }
     
+    @IBAction func didEnterInput(sender: AnyObject) {
+        if (titleTextfield.text!.isEmpty || timeTextField.text!.isEmpty) {
+                saveButton.enabled = false
+        } else {
+            saveButton.enabled = true
+        }
+        
+    }
     
     func keyboardWillShow(notification: NSNotification!) {
         print("show")
