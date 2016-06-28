@@ -11,13 +11,9 @@ import EventKit
 
 class DayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-<<<<<<< HEAD
     // navigation vars
-=======
-
-    
->>>>>>> origin/master
     @IBOutlet weak var navItem: UINavigationItem!
+    
     
     // mainview vars
     @IBOutlet weak var eventsTableView: UITableView!
