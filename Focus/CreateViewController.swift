@@ -93,11 +93,9 @@ class CreateViewController: UIViewController {
         taskTime = Int(timeTextField.text!)
         
         let taskObject = PFObject(className: "Task")
-        let installation = PFInstallation.currentInstallation()
-        let user = installation["user"]
         taskObject["title"] = taskTitle
         taskObject["time"] = taskTime
-        taskObject["user"] = user
+        taskObject["user"] = PFUser.currentUser()
         
         // save to cloud~~~
         taskObject.saveInBackgroundWithBlock {
