@@ -199,19 +199,17 @@ extension NSDate {
         return NSCalendar.currentCalendar().components(.Hour, fromDate: date, toDate: self, options: []).hour
     }
     
-    func minutesFrom(date: NSDate) -> Int{
+    func minutesFrom(date: NSDate) -> Int {
         return NSCalendar.currentCalendar().components(.Minute, fromDate: date, toDate: self, options: []).minute
     }
     
-    func timeFromFloat(date: NSDate) -> AnyObject! {
+    func timeFromFloat(date: NSDate) -> Double {
         
         let minutes = NSCalendar.currentCalendar().components(.Minute, fromDate: date, toDate: self, options: []).minute
         let hours = Double(minutes / 60)
         let remainder = minutes % 60
         var decimal: Double!
         var time: Double!
-        
-        var timeArray: [AnyObject] = []
         
         if hours >= 1 {
             if remainder >= 45 {
@@ -227,22 +225,31 @@ extension NSDate {
                 decimal = 0.0
                 time = hours
             }
-            // set to true if hours
-            
-            if minutes > 60 {
-                timeArray.append("hours")
-            } else {
-                timeArray.append("hour")
-            }
-            
-            timeArray.append(time)
         } else {
             time = Double(minutes)
-            timeArray.append("minutes")
-            timeArray.append(time)
         }
+        return time
+    }
+    
+    func stringTimeFromFloat(date: NSDate) -> String {
         
-        return timeArray
+        let minutes = NSCalendar.currentCalendar().components(.Minute, fromDate: date, toDate: self, options: []).minute
+        let hours = Double(minutes / 60)
+        
+        var timeString: String!
+        
+        if hours >= 1 {
+            if minutes > 60 {
+                timeString = "hours"
+            } else {
+                timeString = "hour"
+            }
+        } else {
+            timeString = "minutes"
+        }
+        // set to true if hours
+        
+        return timeString
     }
     
 }

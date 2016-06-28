@@ -143,6 +143,11 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             // while the index < the # of events in eventsCopy
             while mainIndexStore < eventsCopy!.count {
                 
+                // if event is all day, remove it
+                if eventsCopy![mainIndexStore].allDay {
+                    eventsCopy!.removeAtIndex(mainIndexStore)
+                }
+                
                 // get the event at the current index in eventsInRange
                 let currentEvent = eventsCopy![mainIndexStore]
                 
@@ -373,9 +378,8 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
             let cell = tableView.dequeueReusableCellWithIdentifier("freeCell") as! FreeTableViewCell
             
-            let time = event.endDate.timeFromFloat(event.startDate)
-            let timeText = time[0]
-            let hours = time[1]
+            let timeText = event.endDate.stringTimeFromFloat(event.startDate)
+            let hours = event.endDate.timeFromFloat(event.startDate)
             
             cell.timeLabel.text = startTime
             
