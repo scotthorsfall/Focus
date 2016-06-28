@@ -20,6 +20,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var taskTrayView: UIView!
     
+    @IBOutlet weak var taskButton: UIButton!
     @IBOutlet weak var createTaskButton: UIButton!
     
     var highlightColor: UIColor! = UIColor(red: 119/255, green: 125/255, blue: 136/255, alpha: 1)
@@ -54,6 +55,16 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         // check calendar status on appear
         checkCalendarAuthorizationStatus()
+        
+        // Setting Task button to show number of tasks
+//        let taskViewController = UIViewController() as! TasksViewController
+//        
+//        let totalTasks = taskViewController.tasks.count
+//        
+       
+        taskButton.setTitle("Tasks", forState: .Normal)
+        
+
 
     }
 

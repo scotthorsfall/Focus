@@ -156,6 +156,7 @@
                         <outlet property="eventsTableView" destination="y7M-Qc-hLN" id="yk6-1V-uZa"/>
                         <outlet property="mainView" destination="xkr-eL-Mtv" id="Ye8-Mk-B3J"/>
                         <outlet property="navItem" destination="7yo-6u-T1V" id="pad-4G-eK2"/>
+                        <outlet property="taskButton" destination="mVc-n1-siO" id="RmH-QU-ZoF"/>
                         <outlet property="taskTrayView" destination="RmE-Pq-5YB" id="mhR-Cn-ym3"/>
                     </connections>
                 </viewController>
