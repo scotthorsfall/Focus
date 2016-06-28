@@ -28,16 +28,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         )
         
-        PFAnonymousUtils.logInWithBlock {
-            (user: PFUser?, error: NSError?) -> Void in
-            if error != nil || user == nil {
-                print("Anonymous login failed.")
-            } else {
-                print("Anonymous user logged in.")
+        //PFUser.enableAutomaticUser()
+        print(PFUser.currentUser())
+        
+        // check for login
+        if (PFUser.currentUser() != nil) {
+            print("Already logged in.")
+        } else {
+            PFAnonymousUtils.logInWithBlock {
+                (user: PFUser?, error: NSError?) -> Void in
+                if error != nil || user == nil {
+                    print("Anonymous login failed.")
+                } else {
+                    print("Anonymous user logged in.")
+                }
             }
+            
         }
-        
-        
         return true
     }
 
