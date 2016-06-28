@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="SNc-jy-Lm9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="SNc-jy-Lm9">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -262,6 +262,9 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert"/>
+                                        <connections>
+                                            <action selector="didEnterInput:" destination="ICd-y1-8EF" eventType="editingChanged" id="M0B-90-2Uj"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -270,12 +273,15 @@
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hcQ-4K-G5G">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hcQ-4K-G5G">
                                         <rect key="frame" x="0.0" y="8" width="320" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Save">
                                             <color key="titleColor" red="0.46666666666666667" green="0.49019607843137253" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.46666666666666667" green="0.49019607843137253" blue="0.53333333333333333" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="didSaveTask:" destination="ICd-y1-8EF" eventType="touchUpInside" id="zl2-X3-rK3"/>
@@ -305,6 +311,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="formView" destination="XJh-gW-xzT" id="RZU-uP-mXH"/>
+                        <outlet property="saveButton" destination="hcQ-4K-G5G" id="rf4-hZ-Wna"/>
                         <outlet property="saveView" destination="J2p-ei-gaf" id="4v5-uO-P2N"/>
                         <outlet property="timeTextField" destination="hw2-eR-1pu" id="5eg-hg-vNw"/>
                         <outlet property="titleTextfield" destination="ib5-eZ-6lr" id="9m8-nL-n5r"/>
