@@ -58,9 +58,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         cell.textLabel!.textColor = highlightColor
         
-        
         return cell
-        
     }
     
 //    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

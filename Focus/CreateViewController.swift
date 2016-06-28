@@ -34,9 +34,7 @@ class CreateViewController: UIViewController {
         
         //Title activates keyboard
         titleTextfield.becomeFirstResponder()
-    }
-
-    
+    }    
     
     override func viewDidLoad() {
         super.viewDidLoad()

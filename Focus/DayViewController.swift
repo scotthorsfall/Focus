@@ -371,32 +371,33 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         // Get duration of free blocks
-        let event = focusEventStore[indexPath.row]
-        let duration = event.endDate.hoursFrom(event.startDate)
-        
+        //let event = focusEventStore[indexPath.row]
+        //let duration = event.endDate.hoursFrom(event.startDate)
         
         // setup cell heights
-        var freeCellHeight: CGFloat = 32.0
+        let freeCellHeight: CGFloat = 128.0
         let meetingCellHeight: CGFloat = 44.0
         
         if focusEventStore[indexPath.row].title == "FREE" {
             
-            //set free cell height based on block length X base
+            
+            /* Attemting to have mixed heights
+             
+            set free cell height based on block length X base
             freeCellHeight = freeCellHeight * CGFloat(duration)
             
             
-            //Attempting to center labels in cell
+            Attempting to center labels in cell
             
-//            let cell = tableView.dequeueReusableCellWithIdentifier("freeCell") as! FreeTableViewCell
-//            
-//            let centerLabel = cell.freeCellParentView.center.y
-//
-//            cell.labelContainerView.center.y = centerLabel
-//            
-//            
-//            print("\(centerLabel)")
-//            print("\(cell.labelContainerView.center.y)")
-            
+            let cell = tableView.dequeueReusableCellWithIdentifier("freeCell") as! FreeTableViewCell
+            let centerLabel = cell.freeCellParentView.center.y
+
+            cell.labelContainerView.center.y = centerLabel
+ 
+ 
+            print("\(centerLabel)")
+            print("\(cell.labelContainerView.center.y)")
+            */
             
             return freeCellHeight
         }
