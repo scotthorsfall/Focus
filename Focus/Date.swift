@@ -235,12 +235,9 @@ extension NSDate {
         
         let minutes = NSCalendar.currentCalendar().components(.Minute, fromDate: date, toDate: self, options: []).minute
         let hours = Double(minutes / 60)
-        let remainder = minutes % 60
-        var decimal: Double!
-        var time: Double!
         
         print("hoursFromFloat \(hours)")
-        return time
+        return hours
     }
     
     
