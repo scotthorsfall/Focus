@@ -48,6 +48,11 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         eventsTableView.dataSource = self
         
         navItem.title = "Today"
+        
+        
+        // check calendar status on appear
+        checkCalendarAuthorizationStatus()
+
 
     }
 
@@ -56,9 +61,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // Dispose of any resources that can be recreated.
     }
     
-    // check calendar status on appear
     override func viewWillAppear(animated: Bool) {
-        checkCalendarAuthorizationStatus()
     }
     
     func checkCalendarAuthorizationStatus() {
