@@ -10,6 +10,9 @@ import UIKit
 
 class FreeTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var labelContainerView: UIView!
+    @IBOutlet weak var freeCellParentView: UIView!
+    
     // labels
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!

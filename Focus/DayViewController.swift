@@ -11,6 +11,8 @@ import EventKit
 
 class DayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+
+    
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var eventsTableView: UITableView!
     
@@ -354,11 +356,34 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     // set height
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
+        // Get duration of free blocks
+        let event = focusEventStore[indexPath.row]
+        let duration = event.endDate.hoursFrom(event.startDate)
+        
+        
         // setup cell heights
-        let freeCellHeight: CGFloat = 128.0
+        var freeCellHeight: CGFloat = 32.0
         let meetingCellHeight: CGFloat = 44.0
         
         if focusEventStore[indexPath.row].title == "FREE" {
+            
+            //set free cell height based on block length X base
+            freeCellHeight = freeCellHeight * CGFloat(duration)
+            
+            
+            //Attempting to center labels in cell
+            
+//            let cell = tableView.dequeueReusableCellWithIdentifier("freeCell") as! FreeTableViewCell
+//            
+//            let centerLabel = cell.freeCellParentView.center.y
+//
+//            cell.labelContainerView.center.y = centerLabel
+//            
+//            
+//            print("\(centerLabel)")
+//            print("\(cell.labelContainerView.center.y)")
+            
+            
             return freeCellHeight
         }
         
