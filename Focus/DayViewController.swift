@@ -39,6 +39,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     // set current day (0 = today)
     // TODO: update this as views change
     var currentDay: Int! = 0
+    var today: NSDate! = NSDate().dayBegin()
     
     // set work day beginning and end hours
     // TODO: get these from somewhere
@@ -51,7 +52,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         eventsTableView.delegate = self
         eventsTableView.dataSource = self
         
-        navItem.title = "Today"
+        navItem.title = dateFormatterToString(today, dateStyle: "Short")
         
         // check calendar status on appear
         checkCalendarAuthorizationStatus()
@@ -63,9 +64,6 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
 //        
        
         taskButton.setTitle("Tasks", forState: .Normal)
-        
-
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -114,6 +112,8 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     func loadEvents() {
         
+        navItem.title = dateFormatterToString(today, dateStyle: "Short")
+        
         /*
          STEP 1
          Get list of all events in range today
@@ -122,13 +122,15 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // get calendars
         calendars = eventStore.calendarsForEntityType(EKEntityType.Event)
         
-        // set beginning and end of day (based on currentDay var)
-        // use now.dayBegin()! to reset to 12:00am of that day
+        // use NSDate.dayBegin()! to reset to 12:00am of that day
         // TODO: change these to actual dates and be able to modify them (global vars) in next/previous
-        let beginningDate = NSDate(timeInterval: Double(currentDay)*24*60*60, sinceDate: NSDate().dayBegin()!)
-        let endDate = NSDate(timeInterval: 1*24*60*60, sinceDate: beginningDate)
+        let tomorrow = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: 1, toDate: self.today, options: NSCalendarOptions(rawValue: 0))!
         
-        navItem.title = dateFormatterToString(beginningDate, dateStyle: "Short")
+        print("today: \(today)")
+        print("tomorrow: \(tomorrow)")
+        
+        let beginningDate = today
+        let endDate = tomorrow
         
         // get all events within range on calendar
         let predicate = eventStore.predicateForEventsWithStartDate(beginningDate, endDate: endDate, calendars: calendars)
@@ -160,19 +162,18 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             // while the index < the # of events in eventsCopy
             while mainIndexStore < eventsCopy!.count {
                 
-                // if event is all day, remove it
-                if eventsCopy![mainIndexStore].allDay {
-                    eventsCopy!.removeAtIndex(mainIndexStore)
-                }
-                
                 // get the event at the current index in eventsInRange
                 let currentEvent = eventsCopy![mainIndexStore]
                 
                 // setup the current and next events vars to store
                 var nextEvent: EKEvent! = EKEvent(eventStore: eventStore)
                 
-                // check if the next event is valid, if not = end of array
-                if (mainIndexStore + 1) < eventsCopy?.count {
+                // if event is all day, remove it
+                if currentEvent.allDay {
+                    eventsCopy?.removeAtIndex(mainIndexStore)
+                    mainIndexStore += 0
+                } else if (mainIndexStore + 1) < eventsCopy?.count {
+                    // check if the next event is valid, if not = end of array
                     
                     // set the next event when (index + 1) is valid
                     nextEvent = eventsCopy![mainIndexStore + 1]
@@ -345,14 +346,13 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
         
         
-        /* MEETING CHECK
+        //MEETING CHECK
         for meeting in focusEventStore {
             let start = timeFormatterToString(meeting.startDate, timeStyle: "Short")
             let end = timeFormatterToString(meeting.endDate, timeStyle: "Short")
             
             print("\(meeting.title): \(start) - \(end) ")
         }
-        */
         
     }
     
@@ -447,19 +447,14 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         // reset tableView store
         focusEventStore = []
-        eventsTableView.hidden = true
-        refreshTableView()
-        
-        print("focuseventstore count \(focusEventStore.count)")
+        meetingsInDay = []
         
         // increment day
-        currentDay = currentDay + 1
-        print("current day: \(currentDay)")
+        today = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: 1, toDate: today, options: NSCalendarOptions(rawValue: 0))!
         
         // reload data
         self.loadEvents()
         self.refreshTableView()
-        eventsTableView.hidden = false
         
     }
     
@@ -468,16 +463,14 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         // reset tableView store
         focusEventStore = []
-        eventsTableView.hidden = true
-        refreshTableView()
+        meetingsInDay = []
         
-        // increment day
-        currentDay = currentDay - 1
+        // subtract day
+        today = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: -1, toDate: today, options: NSCalendarOptions(rawValue: 0))!
         
         // reload data
         self.loadEvents()
         self.refreshTableView()
-        eventsTableView.hidden = false
         
     }
     

@@ -126,7 +126,7 @@ extension NSDate {
         return hourFormatter.stringFromDate(self)
     }
     
-    func dayBegin() -> NSDate? {
+    func dayBegin() -> NSDate! {
         let todayComponents = NSDateComponents()
         todayComponents.year = self.year()!
         todayComponents.month = self.month()!
