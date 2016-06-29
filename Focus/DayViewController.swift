@@ -36,9 +36,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     // store our events here
     var focusEventStore: [EKEvent]! = []
     
-    // set current day (0 = today)
-    // TODO: update this as views change
-    var currentDay: Int! = 0
+    // setup current day
     var today: NSDate! = NSDate().dayBegin()
     
     // set work day beginning and end hours
@@ -123,11 +121,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         calendars = eventStore.calendarsForEntityType(EKEntityType.Event)
         
         // use NSDate.dayBegin()! to reset to 12:00am of that day
-        // TODO: change these to actual dates and be able to modify them (global vars) in next/previous
         let tomorrow = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: 1, toDate: self.today, options: NSCalendarOptions(rawValue: 0))!
-        
-        print("today: \(today)")
-        print("tomorrow: \(tomorrow)")
         
         let beginningDate = today
         let endDate = tomorrow
@@ -261,7 +255,6 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
          */
         
         // setup when the day should start and when it should end (within work hours)
-        // TODO: might have to convert these to allow the currentDay variable
         let dayStart: NSDate! = beginningDate.setHour(dayStartTime)
         let dayEnd: NSDate! = beginningDate.setHour(dayEndTime)
         
@@ -345,6 +338,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
         }
         
+        /*
         
         //MEETING CHECK
         for meeting in focusEventStore {
@@ -353,6 +347,8 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
             print("\(meeting.title): \(start) - \(end) ")
         }
+ 
+         */
         
     }
     
@@ -443,7 +439,6 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
 
     @IBAction func onNextDayTap(sender: AnyObject) {
-        print("next day")
         
         // reset tableView store
         focusEventStore = []
@@ -459,7 +454,6 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     @IBAction func onPreviousDayTap(sender: AnyObject) {
-        print("previous day")
         
         // reset tableView store
         focusEventStore = []

@@ -74,17 +74,12 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.reloadData()
     }
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         let vc = segue.destinationViewController as! CreateViewController
         
         vc.delegate = self
-        
-        
     }
 
     @IBAction func didCloseTask(sender: AnyObject) {
@@ -94,7 +89,9 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     }
     
+    /*
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+     */
 }

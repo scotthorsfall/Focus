@@ -203,13 +203,13 @@ extension NSDate {
         return NSCalendar.currentCalendar().components(.Minute, fromDate: date, toDate: self, options: []).minute
     }
     
-    func timeFromFloat(date: NSDate) -> Double {
+    func timeFromFloat(date: NSDate) -> AnyObject {
         
         let minutes = NSCalendar.currentCalendar().components(.Minute, fromDate: date, toDate: self, options: []).minute
         let hours = Double(minutes / 60)
         let remainder = minutes % 60
         var decimal: Double!
-        var time: Double!
+        var time: AnyObject
         
         if hours >= 1 {
             if remainder >= 45 {
@@ -223,7 +223,7 @@ extension NSDate {
                 time = hours + decimal
             } else {
                 decimal = 0.0
-                time = hours
+                time = Int(hours)
             }
         } else {
             time = Double(minutes)
@@ -239,8 +239,6 @@ extension NSDate {
         print("hoursFromFloat \(hours)")
         return hours
     }
-    
-    
     
     func stringTimeFromFloat(date: NSDate) -> String {
         
