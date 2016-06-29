@@ -50,7 +50,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         eventsTableView.delegate = self
         eventsTableView.dataSource = self
         
-        navItem.title = dateFormatterToString(today, dateStyle: "Short")
+        navItem.title = today.titleFormat()
         
         // check calendar status on appear
         checkCalendarAuthorizationStatus()
@@ -110,7 +110,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     func loadEvents() {
         
-        navItem.title = dateFormatterToString(today, dateStyle: "Short")
+        navItem.title = today.titleFormat()
         
         /*
          STEP 1
