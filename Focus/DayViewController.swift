@@ -124,6 +124,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         // set beginning and end of day (based on currentDay var)
         // use now.dayBegin()! to reset to 12:00am of that day
+        // TODO: change these to actual dates and be able to modify them (global vars) in next/previous
         let beginningDate = NSDate(timeInterval: Double(currentDay)*24*60*60, sinceDate: NSDate().dayBegin()!)
         let endDate = NSDate(timeInterval: 1*24*60*60, sinceDate: beginningDate)
         
@@ -446,6 +447,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         // reset tableView store
         focusEventStore = []
+        eventsTableView.hidden = true
         refreshTableView()
         
         print("focuseventstore count \(focusEventStore.count)")
@@ -457,11 +459,25 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // reload data
         self.loadEvents()
         self.refreshTableView()
+        eventsTableView.hidden = false
         
     }
     
     @IBAction func onPreviousDayTap(sender: AnyObject) {
         print("previous day")
+        
+        // reset tableView store
+        focusEventStore = []
+        eventsTableView.hidden = true
+        refreshTableView()
+        
+        // increment day
+        currentDay = currentDay - 1
+        
+        // reload data
+        self.loadEvents()
+        self.refreshTableView()
+        eventsTableView.hidden = false
         
     }
     
