@@ -10,6 +10,7 @@
 		1DAE5459A1EF743C9F86F82F /* Pods_FocusUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F621E9504C8820C41E0D4772 /* Pods_FocusUITests.framework */; };
 		3F5F943C80BADB415495D38B /* Pods_FocusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDD2A52A445583115F1F74B7 /* Pods_FocusTests.framework */; };
 		48F3DF381D19D6C100C14254 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F3DF371D19D6C100C14254 /* CreateViewController.swift */; };
+		5076DDE61D2B1A400019C699 /* TaskListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5076DDE51D2B1A400019C699 /* TaskListTableViewCell.swift */; };
 		5095F10C1D20E7C3000EFD51 /* FreeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5095F10A1D20E7C3000EFD51 /* FreeTableViewCell.swift */; };
 		5095F10D1D20E7C3000EFD51 /* MeetingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5095F10B1D20E7C3000EFD51 /* MeetingTableViewCell.swift */; };
 		50DF2C551D10D185008CFA94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF2C541D10D185008CFA94 /* AppDelegate.swift */; };
@@ -48,6 +49,7 @@
 /* Begin PBXFileReference section */
 		1FC4C0F44DB03B8E973C34B6 /* Pods-FocusTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FocusTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FocusTests/Pods-FocusTests.release.xcconfig"; sourceTree = "<group>"; };
 		48F3DF371D19D6C100C14254 /* CreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
+		5076DDE51D2B1A400019C699 /* TaskListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskListTableViewCell.swift; sourceTree = "<group>"; };
 		5095F10A1D20E7C3000EFD51 /* FreeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreeTableViewCell.swift; sourceTree = "<group>"; };
 		5095F10B1D20E7C3000EFD51 /* MeetingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingTableViewCell.swift; sourceTree = "<group>"; };
 		50DF2C511D10D185008CFA94 /* Focus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Focus.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				5095F10A1D20E7C3000EFD51 /* FreeTableViewCell.swift */,
+				5076DDE51D2B1A400019C699 /* TaskListTableViewCell.swift */,
 				5095F10B1D20E7C3000EFD51 /* MeetingTableViewCell.swift */,
 			);
 			name = "TableView Cells";
@@ -481,6 +484,7 @@
 				48F3DF381D19D6C100C14254 /* CreateViewController.swift in Sources */,
 				50DF2C921D111B91008CFA94 /* Date.swift in Sources */,
 				50DF2C8F1D10D6CD008CFA94 /* FadeTransition.swift in Sources */,
+				5076DDE61D2B1A400019C699 /* TaskListTableViewCell.swift in Sources */,
 				50DF2C551D10D185008CFA94 /* AppDelegate.swift in Sources */,
 				5095F10D1D20E7C3000EFD51 /* MeetingTableViewCell.swift in Sources */,
 				50F447DC1D13A5F20072916E /* DayViewController.swift in Sources */,

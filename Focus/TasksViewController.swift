@@ -15,9 +15,6 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     var tasks: [PFObject] = [PFObject]()
     
-    var highlightColor: UIColor! = UIColor(red: 119/255, green: 125/255, blue: 136/255, alpha: 1)
-    var labelColor: UIColor! = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,28 +43,58 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         // return whichever, will make tableview with 5 cells right now
+        
+        print("tasks count: \(tasks.count)")
+        
         return tasks.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("TaskCell")!
+        let cell = tableView.dequeueReusableCellWithIdentifier("taskCell") as! TaskListTableViewCell
 
         let task = tasks[indexPath.row]
-        cell.textLabel!.text = task["title"] as? String
+        let taskTitle = String(task["title"])
+        let taskDuration = task["time"] as! Int
+        var hourString = "HOUR"
         
-        cell.textLabel!.textColor = highlightColor
+        if taskDuration > 1 {
+            hourString = "HOURS"
+        }
+        
+        cell.titleLabel.text = taskTitle
+        cell.durationLabel.text = String("\(taskDuration) \(hourString)")
         
         return cell
     }
     
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        if indexPath.row == 0 {
-//            return 100
-//        } else {
-//            return 50
-//        }
-//    }
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // the cells you would like the actions to appear needs to be editable
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        //let taskObject = PFObject(className: "Task")
+        
+        if editingStyle == .Delete {
+            
+            /********************************************
+            
+             
+            TODO: Jonathan, we need to remove the taskObject from the task list here
+ 
+             
+            *********************************************/
+            
+            tasks.removeAtIndex(indexPath.row)
+            
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            print("removed task cell")
+        } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        }
+    }
     
     func didAddTask(task: PFObject) {
         tasks.insert(task, atIndex: 0)
@@ -89,9 +116,9 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     }
     
-    /*
-    override func prefersStatusBarHidden() -> Bool {
-        return true
+    @IBAction func didTapAdd(sender: AnyObject) {
+        
+        print("Tapped didTapAdd")
+        
     }
-     */
 }

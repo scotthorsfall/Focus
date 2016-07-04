@@ -119,7 +119,7 @@ class CreateViewController: UIViewController {
         }
         
         // save to LocalStorage
-        //taskObject.pinInBackground()
+        // taskObject.pinInBackground()
         
         //Dissmiss Create View and Save Task
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -133,17 +133,10 @@ class CreateViewController: UIViewController {
         
     }
 
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    
     
 
     /*
