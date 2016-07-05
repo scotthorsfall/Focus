@@ -157,5 +157,10 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     func taskCellTapped(sender: AnyObject) {
         print("task cell tapped")
     }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
 
 }

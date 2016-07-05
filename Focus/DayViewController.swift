@@ -13,15 +13,17 @@ import Parse
 class DayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     // navigation vars
-    @IBOutlet weak var navItem: UINavigationItem!
+    //@IBOutlet weak var navItem: UINavigationItem!
+    @IBOutlet weak var navTitle: UILabel!
     
     // mainview vars
     @IBOutlet weak var eventsTableView: UITableView!
     @IBOutlet var mainView: UIView!
-    @IBOutlet weak var taskTrayView: UIView!
     
-    @IBOutlet weak var taskButton: UIButton!
-    @IBOutlet weak var createTaskButton: UIButton!
+    // testing subview
+    @IBOutlet weak var newTaskTrayView: UIView!
+    var tasksViewController: UIViewController!
+    var fadeTransition: FadeTransition!
     
     // CALENDAR / tableView variables
     // store the events from calendar
@@ -49,23 +51,17 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         eventsTableView.delegate = self
         eventsTableView.dataSource = self
         
-        navItem.title = today.titleFormat()
+        navTitle.text = today.titleFormat()
         
         // check calendar status on appear
         checkCalendarAuthorizationStatus()
         
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        tasksViewController = storyboard.instantiateViewControllerWithIdentifier("TasksViewController") as! TasksViewController
         
-        // setting this up for later
-        let taskCount = 5
-        let taskString = "Tasks"
-        
-        /*
-        if taskCount == 1 {
-            taskString = "Task"
-        }
-        */
- 
-        taskButton.setTitle("\(taskCount) \(taskString)", forState: .Normal)
+        addChildViewController(tasksViewController)
+        tasksViewController.view.frame = newTaskTrayView.bounds
+        newTaskTrayView.addSubview(tasksViewController.view)
     }
 
     override func didReceiveMemoryWarning() {
@@ -115,7 +111,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     func loadEvents() {
         
-        navItem.title = today.titleFormat()
+        navTitle.text = today.titleFormat()
         
         /*
          STEP 1
@@ -533,6 +529,29 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func onTasksTrayTap(sender: AnyObject) {
         
         performSegueWithIdentifier("toTasksViewSegue", sender: self)
+        
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "toTasksViewSegue" {
+            print("to tasks segue")
+            
+            let destinationVC = segue.destinationViewController
+            
+            destinationVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+            
+            fadeTransition = FadeTransition()
+            
+            destinationVC.transitioningDelegate = fadeTransition
+            
+            fadeTransition.duration = 0.5
+            
+        }
         
     }
 }
