@@ -18,19 +18,12 @@ class TaskListTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     
-        
-        let didTap = UITapGestureRecognizer(target: self, action: #selector(TaskListTableViewCell.taskCellTapped(_:)))
-        taskCellView.addGestureRecognizer(didTap)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-    
-    func taskCellTapped(sender: UITapGestureRecognizer) {
-        print("task cell tapped")
     }
     
 

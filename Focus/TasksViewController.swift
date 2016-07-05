@@ -16,6 +16,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var navLabel: UILabel!
     
     var tasks: [PFObject] = [PFObject]()
+    var selectedTask: PFObject!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,12 +114,29 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.reloadData()
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        
+        selectedTask = tasks[indexPath.row]
+        print("selectedTask \(selectedTask))")
+        
+        self.performSegueWithIdentifier("taskDetailSegue", sender: self)
+        
+    }
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let vc = segue.destinationViewController as! CreateViewController
         
-        vc.delegate = self
+        if segue.identifier == "taskDetailSegue" {
+            print("segue to task detail")
+            
+            let editVC = segue.destinationViewController as! EditViewController
+          
+            editVC.taskTitle = String(selectedTask["title"])
+            editVC.taskTime = selectedTask["time"] as! Int
+        }
+        
     }
 
     @IBAction func didCloseTask(sender: AnyObject) {
@@ -131,6 +149,8 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBAction func didTapAdd(sender: AnyObject) {
         
         print("Tapped didTapAdd")
+        
+        performSegueWithIdentifier("createTaskSegue", sender: self)
         
     }
     
