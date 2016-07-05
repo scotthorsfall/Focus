@@ -32,6 +32,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     // store our events here
     var focusEventStore: [EKEvent]! = []
+    var selectedMeeting: EKEvent!
     
     // setup current day
     var today: NSDate! = NSDate().dayBegin()
@@ -40,6 +41,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     // TODO: get these from somewhere
     var dayStartTime: Int! = 9
     var dayEndTime: Int! = 17
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -341,8 +343,8 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
         }
         
-        /*
         
+        /*
         //MEETING CHECK
         for meeting in focusEventStore {
             let start = timeFormatterToString(meeting.startDate, timeStyle: "Short")
@@ -350,9 +352,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
             print("\(meeting.title): \(start) - \(end) ")
         }
- 
          */
-        
     }
     
     func refreshTableView() {
@@ -377,6 +377,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // setup cell heights
         let freeCellHeight: CGFloat = 128.0
         let meetingCellHeight: CGFloat = 44.0
+        let taskCellHeight: CGFloat = 48.0
         
         if focusEventStore[indexPath.row].title == "FREE" {
             
@@ -400,9 +401,13 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             */
             
             return freeCellHeight
+        } else if focusEventStore[indexPath.row].title == "Meeting" || focusEventStore[indexPath.row].title == "Meetings"  {
+            
+            return meetingCellHeight
+            
         }
         
-        return meetingCellHeight
+        return taskCellHeight
         
     }
     
@@ -430,7 +435,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             return cell
             
             
-        } else {
+        } else if focusEventStore[indexPath.row].title == "Meeting" || focusEventStore[indexPath.row].title == "Meetings"  {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("meetingCell") as! MeetingTableViewCell
             
@@ -438,7 +443,61 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             cell.userInteractionEnabled = false
             
             return cell
+        } else {
+            // task cell
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("taskCell") as! TaskListTableViewCell
+            
+            cell.titleLabel.text = event.title
+            cell.durationLabel.text = "3 HOURS"
+            
+            return cell
+            
         }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        // get the selected meeting
+        let index = indexPath.row
+        selectedMeeting = focusEventStore[index]
+        
+        if selectedMeeting.title == "FREE" {
+        
+            /*********************************
+     
+            TODO fetch these from Parse
+             then do the whole flow thing
+     
+            *********************************/
+            let fakeTaskTitle = "Test"
+            let fakeTaskTime = 3
+            
+            // set the end date of the task
+            let fakeTaskEndDate = selectedMeeting.endDate.setHour(selectedMeeting.startDate.hour()! + fakeTaskTime)!
+            
+            // create the task event
+            let fakeTaskMeeting: EKEvent! = EKEvent(eventStore: eventStore)
+            fakeTaskMeeting.title = fakeTaskTitle
+            fakeTaskMeeting.startDate = selectedMeeting.startDate
+            fakeTaskMeeting.endDate = fakeTaskEndDate
+            
+            if fakeTaskMeeting.endDate.isLessThanDate(selectedMeeting.endDate) {
+                // modify the selected free block
+                focusEventStore[index].startDate = fakeTaskMeeting.endDate
+                eventsTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+                // UPDATE THIS
+            } else {
+                // remove the selected free block
+                focusEventStore.removeAtIndex(index)
+                eventsTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+            }
+            
+            focusEventStore.insert(fakeTaskMeeting, atIndex: index)
+            eventsTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
+        
+        }
+        
     }
 
     @IBAction func onNextDayTap(sender: AnyObject) {
