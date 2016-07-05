@@ -8,12 +8,12 @@
 
 import UIKit
 import EventKit
+import Parse
 
 class DayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     // navigation vars
     @IBOutlet weak var navItem: UINavigationItem!
-    
     
     // mainview vars
     @IBOutlet weak var eventsTableView: UITableView!
@@ -22,9 +22,6 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBOutlet weak var taskButton: UIButton!
     @IBOutlet weak var createTaskButton: UIButton!
-    
-    var highlightColor: UIColor! = UIColor(red: 119/255, green: 125/255, blue: 136/255, alpha: 1)
-    var labelColor: UIColor! = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
     
     // CALENDAR / tableView variables
     // store the events from calendar
@@ -55,13 +52,18 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // check calendar status on appear
         checkCalendarAuthorizationStatus()
         
-        // Setting Task button to show number of tasks
-//        let taskViewController = UIViewController() as! TasksViewController
-//        
-//        let totalTasks = taskViewController.tasks.count
-//        
-       
-        taskButton.setTitle("Tasks", forState: .Normal)
+        
+        // setting this up for later
+        let taskCount = 5
+        let taskString = "Tasks"
+        
+        /*
+        if taskCount == 1 {
+            taskString = "Task"
+        }
+        */
+ 
+        taskButton.setTitle("\(taskCount) \(taskString)", forState: .Normal)
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,6 +72,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     override func viewWillAppear(animated: Bool) {
+        
     }
     
     func checkCalendarAuthorizationStatus() {
@@ -468,4 +471,9 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
     }
     
+    @IBAction func onTasksTrayTap(sender: AnyObject) {
+        
+        performSegueWithIdentifier("toTasksViewSegue", sender: self)
+        
+    }
 }

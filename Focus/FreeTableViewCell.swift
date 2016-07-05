@@ -20,12 +20,20 @@ class FreeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        let didTap = UITapGestureRecognizer(target: self, action: #selector(FreeTableViewCell.freeCellTapped(_:)))
+        freeCellParentView.addGestureRecognizer(didTap)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func freeCellTapped(sender: UIGestureRecognizer) {
+        print("meeting cell tapped")
+
     }
 
 }

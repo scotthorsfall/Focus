@@ -13,6 +13,8 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @IBOutlet weak var tableView: UITableView!
 
+    @IBOutlet weak var navLabel: UILabel!
+    
     var tasks: [PFObject] = [PFObject]()
     
     override func viewDidLoad() {
@@ -23,16 +25,27 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.delegate = self
         tableView.dataSource = self
         
+        let taskCount = tasks.count
+        var taskString = "Tasks"
+        
+        if taskCount == 1 {
+            taskString = "Task"
+        }
+        
+        navLabel.text = "\(taskCount) \(taskString)"
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         let query = PFQuery(className: "Task")
         query.whereKey("user", equalTo: PFUser.currentUser()!)
-
+        
         // fetch from local storage which doesn't work right now
         // query.fromLocalDatastore()
         query.findObjectsInBackgroundWithBlock { (tasks: [PFObject]?, error: NSError?) in
             self.tasks = tasks!
             self.tableView.reloadData()
         }
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,10 +55,9 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        // return whichever, will make tableview with 5 cells right now
+        print("tasks count \(tasks.count)")
         
-        print("tasks count: \(tasks.count)")
-        
+        // return as many cells as objects in tasks array
         return tasks.count
     }
     
@@ -121,4 +133,9 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         print("Tapped didTapAdd")
         
     }
+    
+    func taskCellTapped(sender: AnyObject) {
+        print("task cell tapped")
+    }
+
 }

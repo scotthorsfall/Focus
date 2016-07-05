@@ -12,10 +12,15 @@ class TaskListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var taskCellView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    
+        
+        let didTap = UITapGestureRecognizer(target: self, action: #selector(TaskListTableViewCell.taskCellTapped(_:)))
+        taskCellView.addGestureRecognizer(didTap)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -23,5 +28,10 @@ class TaskListTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func taskCellTapped(sender: UITapGestureRecognizer) {
+        print("task cell tapped")
+    }
+    
 
 }
