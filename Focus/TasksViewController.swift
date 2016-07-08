@@ -30,35 +30,42 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         tableView.delegate = self
         tableView.dataSource = self
-        
-        let taskCount = tasks.count
-        var taskString = "Tasks"
-        
-        if taskCount == 1 {
-            taskString = "Task"
-        }
-        
-        navLabel.text = "\(taskCount) \(taskString)"
-        
-        insertTaskMode = insertMode
-
     }
     
     override func viewWillAppear(animated: Bool) {
-        let query = PFQuery(className: "Task")
-        query.whereKey("user", equalTo: PFUser.currentUser()!)
-        
-        // fetch from local storage which doesn't work right now
-        // query.fromLocalDatastore()
-        query.findObjectsInBackgroundWithBlock { (tasks: [PFObject]?, error: NSError?) in
-            self.tasks = tasks!
-            self.tableView.reloadData()
-        }
+        insertTaskMode = insertMode
+        fetchTasksAndUpdateLabel()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func fetchTasksAndUpdateLabel() {
+      
+        let query = PFQuery(className: "Task")
+        query.whereKey("user", equalTo: PFUser.currentUser()!)
+        
+        query.findObjectsInBackgroundWithBlock { (tasks: [PFObject]?, error: NSError?) in
+            self.tasks = tasks!
+            self.tableView.reloadData()
+            
+            self.updateTaskDrawerLabel()
+        }
+        
+    }
+    
+    func updateTaskDrawerLabel() {
+        // update task drawer label
+        let taskCount = self.tasks.count
+        if taskCount > 1 {
+            self.navLabel.text = "\(taskCount) Tasks"
+        } else {
+            self.navLabel.text = "\(taskCount) Tasks"
+        }
+        
+        print(self.navLabel.text)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -96,6 +103,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         //let taskObject = PFObject(className: "Task")
+        let task = tasks[indexPath.row]
         
         if editingStyle == .Delete {
             
@@ -106,20 +114,30 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
  
              
             *********************************************/
-            
+            let query = PFQuery(className: "Task");
+            query.whereKey("objectId", equalTo: task.objectId!)
+            query.findObjectsInBackgroundWithBlock { (tasksToDelete: [PFObject]?, error: NSError?) in
+                
+                for task in tasksToDelete! {
+                    print("deleting task: \(task["title"])")
+                    task.deleteEventually()
+                }
+            }
+
             tasks.removeAtIndex(indexPath.row)
-            
-            
+            print("tasks left: \(tasks.count)")
+            updateTaskDrawerLabel()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             print("removed task cell")
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+            
         }
     }
     
     func didAddTask(task: PFObject) {
         tasks.insert(task, atIndex: 0)
-        tableView.reloadData()
+        updateTaskDrawerLabel()
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -170,6 +188,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBAction func didCloseTask(sender: AnyObject) {
         
         //Dissmiss Create View and kill all edits
+        tableView.reloadData()
         self.dismissViewControllerAnimated(true, completion: nil)
 
     }
