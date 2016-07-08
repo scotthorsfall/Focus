@@ -35,6 +35,8 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     // store our events here
     var focusEventStore: [EKEvent]! = []
     var selectedMeeting: EKEvent!
+    var selectedMeetingIndex: Int!
+    var selectedMeetingNSIndexPath: NSIndexPath!
     
     // setup current day
     var today: NSDate! = NSDate().dayBegin()
@@ -44,6 +46,8 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var dayStartTime: Int! = 9
     var dayEndTime: Int! = 17
     
+    // setup task to pass back
+    var selectedTask: PFObject!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -455,8 +459,9 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         // get the selected meeting
-        let index = indexPath.row
-        selectedMeeting = focusEventStore[index]
+        selectedMeetingIndex = indexPath.row
+        selectedMeetingNSIndexPath = indexPath
+        selectedMeeting = focusEventStore[selectedMeetingIndex]
         
         if selectedMeeting.title == "FREE" {
         
@@ -466,33 +471,48 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
              then do the whole flow thing
      
             *********************************/
-            let fakeTaskTitle = "Test"
-            let fakeTaskTime = 3
             
-            // set the end date of the task
-            let fakeTaskEndDate = selectedMeeting.endDate.setHour(selectedMeeting.startDate.hour()! + fakeTaskTime)!
+            performSegueWithIdentifier("insertSegue", sender: self)
             
-            // create the task event
-            let fakeTaskMeeting: EKEvent! = EKEvent(eventStore: eventStore)
-            fakeTaskMeeting.title = fakeTaskTitle
-            fakeTaskMeeting.startDate = selectedMeeting.startDate
-            fakeTaskMeeting.endDate = fakeTaskEndDate
-            
-            if fakeTaskMeeting.endDate.isLessThanDate(selectedMeeting.endDate) {
-                // modify the selected free block
-                focusEventStore[index].startDate = fakeTaskMeeting.endDate
-                eventsTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
-                // UPDATE THIS
-            } else {
-                // remove the selected free block
-                focusEventStore.removeAtIndex(index)
-                eventsTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .None)
-            }
-            
-            focusEventStore.insert(fakeTaskMeeting, atIndex: index)
-            eventsTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
-        
         }
+        
+    }
+    
+    func insertTask(task: PFObject!, index: Int!) {
+        
+        //let taskTitle = task["title"]
+        //let taskTime = task["time"]
+        
+        // TODO: FocusEventStore is returning as empty here
+        //print("Focuseventstore count \(focusEventStore.count)")
+        
+        /*
+        let fakeTaskTitle = "Test"
+        let fakeTaskTime = 3
+        
+        // set the end date of the task
+        let fakeTaskEndDate = selectedMeeting.endDate.setHour(selectedMeeting.startDate.hour()! + fakeTaskTime)!
+        
+        // create the task event
+        let fakeTaskMeeting: EKEvent! = EKEvent(eventStore: eventStore)
+        fakeTaskMeeting.title = fakeTaskTitle
+        fakeTaskMeeting.startDate = selectedMeeting.startDate
+        fakeTaskMeeting.endDate = fakeTaskEndDate
+        
+        if fakeTaskMeeting.endDate.isLessThanDate(selectedMeeting.endDate) {
+            // modify the selected free block
+            focusEventStore[selectedMeetingIndex].startDate = fakeTaskMeeting.endDate
+            eventsTableView.reloadRowsAtIndexPaths([selectedMeetingNSIndexPath], withRowAnimation: .None)
+            // UPDATE THIS
+        } else {
+            // remove the selected free block
+            focusEventStore.removeAtIndex(selectedMeetingIndex)
+            eventsTableView.deleteRowsAtIndexPaths([selectedMeetingNSIndexPath], withRowAnimation: .None)
+        }
+        
+        focusEventStore.insert(fakeTaskMeeting, atIndex: selectedMeetingIndex)
+        eventsTableView.insertRowsAtIndexPaths([selectedMeetingNSIndexPath], withRowAnimation: .Top)
+        */
         
     }
 
@@ -550,6 +570,17 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             destinationVC.transitioningDelegate = fadeTransition
             
             fadeTransition.duration = 0.5
+            
+        } else if segue.identifier == "insertSegue" {
+            
+            print("insert segue")
+            
+            let navVC = segue.destinationViewController as! UINavigationController
+            let tasksVC = navVC.topViewController as! TasksViewController
+            
+            tasksVC.insertMode = true
+            tasksVC.selectedMeetingIndex = selectedMeetingIndex
+
             
         }
         

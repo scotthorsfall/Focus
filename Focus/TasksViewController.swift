@@ -18,6 +18,11 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     var tasks: [PFObject] = [PFObject]()
     var selectedTask: PFObject!
     
+    var insertMode: Bool! = false
+    var insertTaskMode: Bool! = false
+    
+    var selectedMeetingIndex: Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,6 +39,8 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         navLabel.text = "\(taskCount) \(taskString)"
+        
+        insertTaskMode = insertMode
 
     }
     
@@ -102,6 +109,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             tasks.removeAtIndex(indexPath.row)
             
+            
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             print("removed task cell")
         } else if editingStyle == .Insert {
@@ -116,12 +124,32 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        
         selectedTask = tasks[indexPath.row]
-        print("selectedTask \(selectedTask))")
+        print("selectedTask \(selectedTask["title"])")
         
-        self.performSegueWithIdentifier("taskDetailSegue", sender: self)
+        if insertTaskMode == true {
         
+            insertTask()
+        
+        } else {
+            
+            self.performSegueWithIdentifier("taskDetailSegue", sender: self)
+            
+        }
+        
+    }
+    
+    func insertTask() {
+        print("insert task")
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let dayVC = storyboard.instantiateViewControllerWithIdentifier("DayViewController") as! DayViewController
+        
+        print("insertVC: selectedMeetingIndex: \(selectedMeetingIndex)")
+        
+        dayVC.insertTask(selectedTask, index: selectedMeetingIndex)
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -129,12 +157,12 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Pass the selected object to the new view controller.
         
         if segue.identifier == "taskDetailSegue" {
-            print("segue to task detail")
-            
-            let editVC = segue.destinationViewController as! EditViewController
-          
-            editVC.taskTitle = String(selectedTask["title"])
-            editVC.taskTime = selectedTask["time"] as! Int
+                print("segue to task detail")
+                
+                let editVC = segue.destinationViewController as! EditViewController
+                
+                editVC.taskTitle = String(selectedTask["title"])
+                editVC.taskTime = selectedTask["time"] as! Int
         }
         
     }
@@ -156,14 +184,6 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func taskCellTapped(sender: AnyObject) {
         print("task cell tapped")
-    }
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
     }
     
 

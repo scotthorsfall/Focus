@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="SNc-jy-Lm9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="R65-v2-ebE">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -173,6 +173,7 @@
                         <outlet property="navTitle" destination="BEv-86-79D" id="4Se-lI-hjp"/>
                         <outlet property="newTaskTrayView" destination="cNh-UF-MQV" id="HAB-lp-VEt"/>
                         <segue destination="mmx-uE-IqS" kind="modal" identifier="toTasksViewSegue" id="aiM-Ae-UOG"/>
+                        <segue destination="mmx-uE-IqS" kind="modal" identifier="insertSegue" id="f5l-WH-8Z1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PQb-Mi-ayX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -383,26 +384,6 @@
             </objects>
             <point key="canvasLocation" x="1240" y="1413"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="jlr-BL-rGw">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="SNc-jy-Lm9" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="bRP-gt-lL2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="R65-v2-ebE" kind="relationship" relationship="rootViewController" id="SX4-wp-bOw"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oES-Gr-QUY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="174" y="-21"/>
-        </scene>
         <!--Create View Controller-->
         <scene sceneID="trL-K9-weD">
             <objects>
@@ -518,4 +499,7 @@
         <image name="cross" width="15" height="15"/>
         <image name="glyph-plus" width="16" height="16"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="aiM-Ae-UOG"/>
+    </inferredMetricsTieBreakers>
 </document>
