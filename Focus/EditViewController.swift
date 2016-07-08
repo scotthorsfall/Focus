@@ -113,6 +113,10 @@ class EditViewController: UIViewController {
 
     }
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }

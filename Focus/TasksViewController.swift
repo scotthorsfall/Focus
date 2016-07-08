@@ -158,6 +158,10 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         print("task cell tapped")
     }
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
