@@ -104,11 +104,8 @@ class EditViewController: UIViewController {
     
     @IBAction func didTapSave(sender: UIButton) {
         
-        // save the fields
-        
-        let tasksVC = UIViewController() as! TasksViewController
-        print("tasks VC: \(tasksVC)")
-        
+        // TODO update the save function
+
         self.navigationController?.popViewControllerAnimated(true)
 
     }

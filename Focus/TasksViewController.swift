@@ -15,14 +15,14 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     weak var dayViewController: DayViewController!
     
     @IBOutlet weak var tableView: UITableView!
-
     
-    
+    // nav items
     @IBOutlet weak var navBarView: UIView!
     @IBOutlet weak var navBarItemsView: UIView!
     @IBOutlet weak var navLabel: UILabel!
     @IBOutlet weak var navClose: UIButton!
     @IBOutlet weak var navPlus: UIButton!
+    var navLabelOriginalFrame: CGRect!
     
     var tasks: [PFObject] = [PFObject]()
     var selectedTask: PFObject!
@@ -39,6 +39,14 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        navClose.enabled = false
+        navClose.alpha = 0
+        
+        navLabel.sizeToFit()
+        navLabel.textAlignment = NSTextAlignment.Center
+        
+        navLabelOriginalFrame = navLabel.frame
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -74,7 +82,11 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.navLabel.text = "\(taskCount) Tasks"
         }
         
-        //print(self.navLabel.text!)
+        navLabel.sizeToFit()
+        
+        var tempFrame = navLabelOriginalFrame
+        tempFrame.size.width = navLabel.frame.width
+        navLabelOriginalFrame = tempFrame
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -208,7 +220,7 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+        return UIStatusBarStyle.Default
     }
 
 }

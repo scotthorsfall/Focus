@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "glyph-cross@1x.png",
+      "filename" : "glyph-cross.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "glyph-cross@2x.png",
+      "filename" : "glyph-cross2x.png",
       "scale" : "2x"
     },
     {

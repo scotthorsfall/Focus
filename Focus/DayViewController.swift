@@ -13,7 +13,7 @@ import Parse
 class DayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     // navigation vars
-    //@IBOutlet weak var navItem: UINavigationItem!
+    @IBOutlet weak var navView: UIView!
     @IBOutlet weak var navTitle: UILabel!
     
     // mainview vars
@@ -554,12 +554,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         if segue.identifier == "toTasksViewSegue" {
             print("to tasks segue")
             
-            //let navVC = segue.destinationViewController as! UINavigationController
-            //let destinationVC = navVC.topViewController as! TasksViewController
-            
             let destinationVC = segue.destinationViewController
-            
-            print("destVC: \(destinationVC)")
             
             // Set the modal presentation style of your destinationViewController to be custom.
             destinationVC.modalPresentationStyle = UIModalPresentationStyle.Custom
@@ -571,15 +566,27 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             destinationVC.transitioningDelegate = customTransition
             
             // Adjust the transition duration. (seconds)
-            customTransition.duration = 1.0
+            customTransition.duration = 0.75
             
         } else if segue.identifier == "insertSegue" {
             
-            
-            
             print("insert segue")
             
-            let navVC = segue.destinationViewController as! UINavigationController
+            let destinationVC = segue.destinationViewController
+            
+            // Set the modal presentation style of your destinationViewController to be custom.
+            destinationVC.modalPresentationStyle = UIModalPresentationStyle.Custom
+            
+            // Create a new instance of your fadeTransition.
+            customTransition = CustomTransition()
+            
+            // Tell the destinationViewController's  transitioning delegate to look in fadeTransition for transition instructions.
+            destinationVC.transitioningDelegate = customTransition
+            
+            // Adjust the transition duration. (seconds)
+            customTransition.duration = 0.75
+            
+            let navVC = destinationVC as! UINavigationController
             let tasksVC = navVC.topViewController as! TasksViewController
             
             tasksVC.dayViewController = self

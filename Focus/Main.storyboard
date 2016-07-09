@@ -171,6 +171,7 @@
                         <outlet property="eventsTableView" destination="y7M-Qc-hLN" id="yk6-1V-uZa"/>
                         <outlet property="mainView" destination="xkr-eL-Mtv" id="Ye8-Mk-B3J"/>
                         <outlet property="navTitle" destination="BEv-86-79D" id="4Se-lI-hjp"/>
+                        <outlet property="navView" destination="BVY-Mp-ctF" id="GI4-XY-cm4"/>
                         <outlet property="taskTrayView" destination="cNh-UF-MQV" id="FYH-v1-g5s"/>
                         <segue destination="mmx-uE-IqS" kind="modal" identifier="toTasksViewSegue" id="aiM-Ae-UOG"/>
                         <segue destination="mmx-uE-IqS" kind="modal" identifier="insertSegue" id="f5l-WH-8Z1"/>
@@ -207,14 +208,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dz6-mt-jPb" userLabel="titleLabel">
-                                                    <rect key="frame" x="15" y="8" width="290" height="16"/>
+                                                    <rect key="frame" x="12" y="8" width="296" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                     <color key="textColor" red="0.29411764705882354" green="0.30980392156862746" blue="0.33725490196078434" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Jg-G5-zaH" userLabel="durationLabel">
-                                                    <rect key="frame" x="15" y="24" width="290" height="16"/>
+                                                    <rect key="frame" x="12" y="24" width="296" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.56470588235294117" green="0.58039215686274515" blue="0.61176470588235299" alpha="1" colorSpace="deviceRGB"/>
@@ -262,22 +263,22 @@
                                                     <action selector="didTapAdd:" destination="BC7-Vg-a2u" eventType="touchUpInside" id="MKx-7i-8yj"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tasks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ArO-mT-58l">
-                                                <rect key="frame" x="71" y="11" width="179" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tasks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ArO-mT-58l">
+                                                <rect key="frame" x="12" y="11" width="179" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                                                <color key="textColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.33725490200000002" alpha="1" colorSpace="deviceRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </view>
                                     <view contentMode="scaleToFill" id="lGw-OW-Uga" userLabel="Border">
-                                        <rect key="frame" x="0.0" y="63" width="320" height="1"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="0.14999999999999999" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="0.0" y="63.5" width="320" height="0.5"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.33725490200000002" alpha="1" colorSpace="deviceRGB"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.33725490200000002" alpha="0.90000000000000002" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.33725490200000002" alpha="1" colorSpace="deviceRGB"/>
@@ -506,7 +507,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cross" width="15" height="15"/>
+        <image name="cross" width="16" height="16"/>
         <image name="glyph-plus" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
