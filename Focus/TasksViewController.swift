@@ -82,16 +82,16 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("taskCell") as! TaskListTableViewCell
 
         let task = tasks[indexPath.row]
-        let taskTitle = String(task["title"])
+        let taskTitle = task["title"] as! String
         let taskDuration = task["time"] as! Int
-        var hourString = "HOUR"
+        var hourString = "hour"
         
         if taskDuration > 1 {
-            hourString = "HOURS"
+            hourString = "hours"
         }
         
         cell.titleLabel.text = taskTitle
-        cell.durationLabel.text = String("\(taskDuration) \(hourString)")
+        cell.durationLabel.text = String("\(taskDuration) \(hourString)").capitalizedString
         
         return cell
     }

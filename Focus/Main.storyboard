@@ -274,7 +274,7 @@
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.33725490200000002" alpha="0.90000000000000002" colorSpace="deviceRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.33725490200000002" alpha="0.5" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.33725490200000002" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="hhD-VX-MaL"/>
                     <nil key="simulatedStatusBarMetrics"/>

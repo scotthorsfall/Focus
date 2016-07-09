@@ -452,9 +452,10 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             let hours = event.endDate.timeFromFloat(event.startDate)
             
             let durationString = "\(hours) \(timeText)"
+
             
             cell.titleLabel.text = event.title
-            cell.durationLabel.text = durationString
+            cell.durationLabel.text = durationString.capitalizedString
             
             return cell
             
@@ -469,15 +470,10 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         selectedMeeting = focusEventStore[selectedMeetingIndex]
         
         if selectedMeeting.title == "FREE" {
-        
-            /*********************************
-     
-            TODO fetch these from Parse
-             then do the whole flow thing
-     
-            *********************************/
             
             performSegueWithIdentifier("insertSegue", sender: self)
+
+            eventsTableView.deselectRowAtIndexPath(indexPath, animated: true)
             
         }
         
@@ -569,6 +565,8 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             fadeTransition.duration = 0.5
             
         } else if segue.identifier == "insertSegue" {
+            
+            
             
             print("insert segue")
             
