@@ -16,7 +16,13 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @IBOutlet weak var tableView: UITableView!
 
+    
+    
+    @IBOutlet weak var navBarView: UIView!
+    @IBOutlet weak var navBarItemsView: UIView!
     @IBOutlet weak var navLabel: UILabel!
+    @IBOutlet weak var navClose: UIButton!
+    @IBOutlet weak var navPlus: UIButton!
     
     var tasks: [PFObject] = [PFObject]()
     var selectedTask: PFObject!
@@ -204,10 +210,5 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
     }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-    
 
 }

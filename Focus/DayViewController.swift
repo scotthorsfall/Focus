@@ -21,9 +21,9 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet var mainView: UIView!
     
     // testing subview
-    @IBOutlet weak var newTaskTrayView: UIView!
+    @IBOutlet weak var taskTrayView: UIView!
     var tasksViewController: UIViewController!
-    var fadeTransition: FadeTransition!
+    var customTransition: CustomTransition!
     
     // CALENDAR / tableView variables
     // store the events from calendar
@@ -64,8 +64,8 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         tasksViewController = storyboard.instantiateViewControllerWithIdentifier("TasksViewController") as! TasksViewController
         
         addChildViewController(tasksViewController)
-        tasksViewController.view.frame = newTaskTrayView.bounds
-        newTaskTrayView.addSubview(tasksViewController.view)
+        tasksViewController.view.frame = taskTrayView.bounds
+        taskTrayView.addSubview(tasksViewController.view)
     }
 
     override func didReceiveMemoryWarning() {
@@ -554,15 +554,24 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         if segue.identifier == "toTasksViewSegue" {
             print("to tasks segue")
             
+            //let navVC = segue.destinationViewController as! UINavigationController
+            //let destinationVC = navVC.topViewController as! TasksViewController
+            
             let destinationVC = segue.destinationViewController
             
-            destinationVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+            print("destVC: \(destinationVC)")
             
-            fadeTransition = FadeTransition()
+            // Set the modal presentation style of your destinationViewController to be custom.
+            destinationVC.modalPresentationStyle = UIModalPresentationStyle.Custom
             
-            destinationVC.transitioningDelegate = fadeTransition
+            // Create a new instance of your fadeTransition.
+            customTransition = CustomTransition()
             
-            fadeTransition.duration = 0.5
+            // Tell the destinationViewController's  transitioning delegate to look in fadeTransition for transition instructions.
+            destinationVC.transitioningDelegate = customTransition
+            
+            // Adjust the transition duration. (seconds)
+            customTransition.duration = 1.0
             
         } else if segue.identifier == "insertSegue" {
             
