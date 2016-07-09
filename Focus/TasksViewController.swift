@@ -11,6 +11,9 @@ import Parse
 
 class TasksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CreateViewControllerDelegate  {
     
+    // store dayviewcontroller
+    weak var dayViewController: DayViewController!
+    
     @IBOutlet weak var tableView: UITableView!
 
     @IBOutlet weak var navLabel: UILabel!
@@ -59,18 +62,16 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     func updateTaskDrawerLabel() {
         // update task drawer label
         let taskCount = self.tasks.count
-        if taskCount > 1 {
-            self.navLabel.text = "\(taskCount) Tasks"
+        if taskCount == 1 {
+            self.navLabel.text = "\(taskCount) Task"
         } else {
             self.navLabel.text = "\(taskCount) Tasks"
         }
         
-        print(self.navLabel.text)
+        //print(self.navLabel.text!)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        print("tasks count \(tasks.count)")
         
         // return as many cells as objects in tasks array
         return tasks.count
@@ -107,32 +108,33 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         if editingStyle == .Delete {
             
-            /********************************************
+            deleteTask(task, indexPath: indexPath)
             
-             
-            TODO: Jonathan, we need to remove the taskObject from the task list here
- 
-             
-            *********************************************/
-            let query = PFQuery(className: "Task");
-            query.whereKey("objectId", equalTo: task.objectId!)
-            query.findObjectsInBackgroundWithBlock { (tasksToDelete: [PFObject]?, error: NSError?) in
-                
-                for task in tasksToDelete! {
-                    print("deleting task: \(task["title"])")
-                    task.deleteEventually()
-                }
-            }
-
-            tasks.removeAtIndex(indexPath.row)
-            print("tasks left: \(tasks.count)")
-            updateTaskDrawerLabel()
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             print("removed task cell")
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
             
         }
+    }
+    
+    func deleteTask(task: PFObject!, indexPath: NSIndexPath!) {
+        
+        let query = PFQuery(className: "Task");
+        query.whereKey("objectId", equalTo: task.objectId!)
+        query.findObjectsInBackgroundWithBlock { (tasksToDelete: [PFObject]?, error: NSError?) in
+            
+            for task in tasksToDelete! {
+                print("deleting task: \(task["title"])")
+                task.deleteEventually()
+            }
+        }
+        
+        tasks.removeAtIndex(indexPath.row)
+
+        updateTaskDrawerLabel()
+        
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        
     }
     
     func didAddTask(task: PFObject) {
@@ -143,11 +145,11 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         selectedTask = tasks[indexPath.row]
-        print("selectedTask \(selectedTask["title"])")
         
         if insertTaskMode == true {
         
             insertTask()
+            deleteTask(selectedTask, indexPath: indexPath)
         
         } else {
             
@@ -158,14 +160,8 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func insertTask() {
-        print("insert task")
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let dayVC = storyboard.instantiateViewControllerWithIdentifier("DayViewController") as! DayViewController
-        
-        print("insertVC: selectedMeetingIndex: \(selectedMeetingIndex)")
-        
-        dayVC.insertTask(selectedTask, index: selectedMeetingIndex)
+        dayViewController.insertTask(selectedTask)
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -203,6 +199,14 @@ class TasksViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func taskCellTapped(sender: AnyObject) {
         print("task cell tapped")
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
     
 

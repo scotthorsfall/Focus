@@ -448,8 +448,13 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
             let cell = tableView.dequeueReusableCellWithIdentifier("taskCell") as! TaskListTableViewCell
             
+            let timeText = event.endDate.stringTimeFromFloat(event.startDate)
+            let hours = event.endDate.timeFromFloat(event.startDate)
+            
+            let durationString = "\(hours) \(timeText)"
+            
             cell.titleLabel.text = event.title
-            cell.durationLabel.text = "3 HOURS"
+            cell.durationLabel.text = durationString
             
             return cell
             
@@ -478,30 +483,23 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
     }
     
-    func insertTask(task: PFObject!, index: Int!) {
+    func insertTask(task: PFObject!) {
         
-        //let taskTitle = task["title"]
-        //let taskTime = task["time"]
-        
-        // TODO: FocusEventStore is returning as empty here
-        //print("Focuseventstore count \(focusEventStore.count)")
-        
-        /*
-        let fakeTaskTitle = "Test"
-        let fakeTaskTime = 3
+        let taskTitle = task["title"] as! String
+        let taskTime = task["time"] as! Int
         
         // set the end date of the task
-        let fakeTaskEndDate = selectedMeeting.endDate.setHour(selectedMeeting.startDate.hour()! + fakeTaskTime)!
+        let taskEndDate = selectedMeeting.endDate.setHour(selectedMeeting.startDate.hour()! + taskTime)!
         
         // create the task event
-        let fakeTaskMeeting: EKEvent! = EKEvent(eventStore: eventStore)
-        fakeTaskMeeting.title = fakeTaskTitle
-        fakeTaskMeeting.startDate = selectedMeeting.startDate
-        fakeTaskMeeting.endDate = fakeTaskEndDate
+        let taskMeeting: EKEvent! = EKEvent(eventStore: eventStore)
+        taskMeeting.title = taskTitle
+        taskMeeting.startDate = selectedMeeting.startDate
+        taskMeeting.endDate = taskEndDate
         
-        if fakeTaskMeeting.endDate.isLessThanDate(selectedMeeting.endDate) {
+        if taskMeeting.endDate.isLessThanDate(selectedMeeting.endDate) {
             // modify the selected free block
-            focusEventStore[selectedMeetingIndex].startDate = fakeTaskMeeting.endDate
+            focusEventStore[selectedMeetingIndex].startDate = taskMeeting.endDate
             eventsTableView.reloadRowsAtIndexPaths([selectedMeetingNSIndexPath], withRowAnimation: .None)
             // UPDATE THIS
         } else {
@@ -510,9 +508,8 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             eventsTableView.deleteRowsAtIndexPaths([selectedMeetingNSIndexPath], withRowAnimation: .None)
         }
         
-        focusEventStore.insert(fakeTaskMeeting, atIndex: selectedMeetingIndex)
+        focusEventStore.insert(taskMeeting, atIndex: selectedMeetingIndex)
         eventsTableView.insertRowsAtIndexPaths([selectedMeetingNSIndexPath], withRowAnimation: .Top)
-        */
         
     }
 
@@ -578,6 +575,7 @@ class DayViewController: UIViewController, UITableViewDataSource, UITableViewDel
             let navVC = segue.destinationViewController as! UINavigationController
             let tasksVC = navVC.topViewController as! TasksViewController
             
+            tasksVC.dayViewController = self
             tasksVC.insertMode = true
             tasksVC.selectedMeetingIndex = selectedMeetingIndex
 
